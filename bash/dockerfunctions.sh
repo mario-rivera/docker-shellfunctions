@@ -1,5 +1,5 @@
 #!/bin/bash
-$DOCKER_BASH_FUNCTIONS_DIR=$(dirname "${BASH_SOURCE[0]}")
+DOCKER_BASH_FUNCTIONS_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 create_network_ifnotexists(){
     # -z is if output is empty
