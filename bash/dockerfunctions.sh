@@ -34,7 +34,9 @@ disconnect_from_network(){
 }
 
 check_container_ps(){
-    if [ $($1) ]; then
+    local result=$(eval $1)
+    
+    if [ ! -z "$result" ]; then
         # 0 = true
         return 0
     else
@@ -44,15 +46,15 @@ check_container_ps(){
 }
 
 container_is_stopped(){
-    check_container_ps "docker ps -aq -f status=exited -f name=$1"
+    check_container_ps "docker ps -aq -f status=exited -f name=$1 | grep -w \"\\s$1\$\""
 }
 
 container_is_running(){
-    check_container_ps "docker ps -aq -f status=running -f name=$1"
+    check_container_ps "docker ps -aq -f status=running -f name=$1 | grep -w \"\\s$1\$\""
 }
 
 container_exists(){
-    check_container_ps "docker ps -aq -f name=$1"
+    check_container_ps "docker ps -a -f name=$1 | grep -w \"\\s$1\$\""
 }
 
 stop_container(){
